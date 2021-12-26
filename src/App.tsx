@@ -1,23 +1,34 @@
-import { defineComponent, h, ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent, h, ref, Ref } from 'vue'
+import MonacoEditor from './components/MonacoEditor'
 
-const img = require('./assets/logo.png') // eslint-disable-line
+function toJson(data: any) {
+  return JSON.stringify(data, null, 2)
+}
+const schema = {
+  type: 'string'
+}
+
 export default defineComponent({
   setup() {
-    const numRef = ref(1)
-    const num2Ref = ref(1)
-    setInterval(() => {
-      numRef.value++
-    }, 500)
-    setInterval(() => {
-      num2Ref.value++
-    }, 500)
+    const schemaRef: Ref<any> = ref(schema)
+    const handleCodeChange = (code: string) => {
+      let schema: any
+      try {
+        schema = JSON.parse(code)
+      } catch (err) {
+        err
+      }
+      schemaRef.value = schema
+    }
     return () => {
-      return h(
-        <div id="test">
-          <img alt="Vue logo" src={img} />
-          <p>{numRef.value + '' + num2Ref.value}</p>
-          <HelloWorld txt={'dx'}></HelloWorld>
+      const code = toJson(schemaRef.value)
+      return (
+        <div>
+          <MonacoEditor
+            code={code}
+            onChange={handleCodeChange}
+            title="Schema"
+          />
         </div>
       )
     }
