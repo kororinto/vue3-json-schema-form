@@ -1,5 +1,5 @@
 <template>
-  <input type="text" :value="value" @input="handleChange" />
+  <input type="number" :value="value" @input="handleChange" />
 </template>
 
 <script lang="ts">
@@ -21,8 +21,13 @@ export default defineComponent({
   },
   setup(props) {
     const handleChange = (e: any): void => {
-      console.log(e)
-      props.onChange(e.target.value)
+      const value = e.target.value
+      const num = Number(value)
+      if (isNaN(num)) {
+        props.onChange(undefined)
+      } else {
+        props.onChange(num)
+      }
     }
     return {
       handleChange
