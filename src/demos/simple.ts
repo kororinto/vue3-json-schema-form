@@ -15,6 +15,27 @@ export default {
       telephone: {
         type: 'string',
         minLength: 10
+      },
+      staticArray: {
+        type: 'array',
+        items: {
+          type: 'string'
+        }
+        // items: [
+        //   {
+        //     type: 'string'
+        //   },
+        //   {
+        //     type: 'number'
+        //   }
+        // ]
+      },
+      enumArray: {
+        type: 'array',
+        items: {
+          type: 'string',
+          enum: ['1', '2', '3']
+        }
       }
     }
   },
@@ -37,6 +58,7 @@ export default {
     lastName: 'Norris',
     age: 75,
     bio: 'Roundhouse kicking asses since 1940',
-    password: 'noneed'
+    password: 'noneed',
+    staticArray: ['123', '321']
   }
 }
