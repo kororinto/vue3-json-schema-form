@@ -13,7 +13,7 @@ export default {
         type: 'string'
       },
       telephone: {
-        type: 'string',
+        type: 'number',
         minLength: 10
       },
       staticArray: {

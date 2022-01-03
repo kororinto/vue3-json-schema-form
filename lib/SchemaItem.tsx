@@ -1,9 +1,8 @@
 import { computed, defineComponent, PropType } from 'vue'
 
 import { Schema, SchemaTypes, FieldPropsDefine } from './types'
-// import StringField from './fields/StringField'
-import StringField from './fields/StringField.vue'
-import NumberField from './fields/NumberField.vue'
+import StringField from './fields/StringField'
+import NumberField from './fields/NumberField'
 import ObjectField from './fields/ObjectField'
 import ArrayField from './fields/ArrayField'
 import { retrieveSchema } from './utils'
@@ -26,7 +25,6 @@ export default defineComponent({
       const type = schema.type
 
       let Component: any
-      console.log(type)
       switch (type) {
         case SchemaTypes.STRING: {
           Component = StringField
