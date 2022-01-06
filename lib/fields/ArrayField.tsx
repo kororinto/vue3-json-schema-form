@@ -1,8 +1,15 @@
 import { defineComponent, PropType } from 'vue'
 import { useVJSFContext } from '../context'
-import { FieldPropsDefine, CommonFieldType, Schema } from '../types'
+import {
+  FieldPropsDefine,
+  CommonFieldType,
+  Schema,
+  SelectionWidgetNames
+} from '../types'
 import { createUseStyles } from 'vue-jss'
-import SelectionWidget from '../widgets/Selection'
+import { getWidget } from '../theme'
+// 使用主题中的widget
+// import SelectionWidget from '../widgets/Selection'
 
 // ------------type1：
 // {
@@ -95,6 +102,7 @@ export default defineComponent({
   props: FieldPropsDefine,
   setup(props) {
     const context = useVJSFContext()
+    const SelectionWidgetRef = getWidget(SelectionWidgetNames.SelectionWidget)
     const handleArrayFieldChange = (v: string, i: number) => {
       const { value } = props
       const arr = Array.isArray(value) ? value : []
@@ -129,6 +137,8 @@ export default defineComponent({
     }
     return () => {
       const SchemaItem: CommonFieldType = context.SchemaItem
+      // const SelectionWidget = context.theme.widgets.SelectionWidget
+      const SelectionWidget = SelectionWidgetRef.value
       const { schema, rootSchema, value } = props
       const isMutiType = Array.isArray(schema.items)
       const isSelect = schema.items && (schema.items as any).enum

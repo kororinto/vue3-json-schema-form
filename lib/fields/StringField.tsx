@@ -1,28 +1,24 @@
 import { defineComponent, PropType } from 'vue'
-import { Schema } from '../types'
+import { Schema, CommonWidgetNames, FieldPropsDefine } from '../types'
+import { getWidget } from '../theme'
 
 export default defineComponent({
   name: 'StringField',
-  props: {
-    schema: {
-      type: Object as PropType<Schema>,
-      required: true
-    },
-    value: {
-      required: true
-    },
-    onChange: {
-      type: Function as PropType<(v: any) => void>,
-      required: true
-    }
-  },
+  props: FieldPropsDefine,
   setup(props) {
-    const handleChange = (e: any): void => {
-      props.onChange(e.target.value)
+    const handleChange = (v: string): void => {
+      props.onChange(v)
     }
+    // return () => {
+    //   const value: any = props.value
+    //   return <input type="text" value={value} onInput={handleChange} />
+    // }
+    const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget)
     return () => {
-      const value: any = props.value
-      return <input type="text" value={value} onInput={handleChange} />
+      const { schema, rootSchema, onChange, ...rest } = props
+      const TextWidget = TextWidgetRef.value
+      // 重名函数会自动执行mergeProps合并成数组 应在babel里关掉改配置
+      return <TextWidget {...rest} onChange={handleChange} />
     }
   }
 })

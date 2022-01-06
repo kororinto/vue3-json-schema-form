@@ -5,10 +5,11 @@ import JsonSchemaForm, {
   ArrayField,
   SelectionWidget
 } from '../../lib'
+import TestComponent from './utils/TestComponent'
 
 describe('ArrayField', () => {
   it('should render multi-type field', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -34,7 +35,7 @@ describe('ArrayField', () => {
     expect(num.exists()).toBeTruthy()
   })
   it('should render single type field', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -54,7 +55,7 @@ describe('ArrayField', () => {
     expect(strs[0].props('value')).toBe(wrapper.props('value')[0])
   })
   it('should render enum type field', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
