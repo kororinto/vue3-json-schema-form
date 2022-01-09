@@ -1,7 +1,7 @@
 import { CommonWidgetPropsDefine } from '../types'
 import { defineComponent } from 'vue'
 
-const TextWidget = defineComponent({
+const NumberWidget = defineComponent({
   props: CommonWidgetPropsDefine,
   setup(props) {
     const handleChange = (e: any): void => {
@@ -11,8 +11,8 @@ const TextWidget = defineComponent({
     }
     return () => {
       const value: any = props.value
-      return <input type="text" value={value} onInput={handleChange} />
+      return <input type="number" value={value} onInput={handleChange} />
     }
   }
 })
-export default TextWidget
+export default NumberWidget
