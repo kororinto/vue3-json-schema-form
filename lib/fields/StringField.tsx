@@ -15,10 +15,16 @@ export default defineComponent({
     // }
     const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget)
     return () => {
-      const { schema, rootSchema, onChange, ...rest } = props
+      const { schema, rootSchema, errorSchema, onChange, ...rest } = props
       const TextWidget = TextWidgetRef.value
       // 重名函数会自动执行mergeProps合并成数组 应在babel里关掉改配置
-      return <TextWidget {...rest} onChange={handleChange} />
+      return (
+        <TextWidget
+          {...rest}
+          errors={errorSchema.__errors}
+          onChange={handleChange}
+        />
+      )
     }
   }
 })

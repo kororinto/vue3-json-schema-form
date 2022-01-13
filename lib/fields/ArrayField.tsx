@@ -139,7 +139,7 @@ export default defineComponent({
       const SchemaItem: CommonFieldType = context.SchemaItem
       // const SelectionWidget = context.theme.widgets.SelectionWidget
       const SelectionWidget = SelectionWidgetRef.value
-      const { schema, rootSchema, value } = props
+      const { schema, rootSchema, value, errorSchema } = props
       const isMutiType = Array.isArray(schema.items)
       const isSelect = schema.items && (schema.items as any).enum
       if (isMutiType) {
@@ -152,6 +152,7 @@ export default defineComponent({
             rootSchema={rootSchema}
             value={arr[i]}
             onChange={(v: any) => handleArrayFieldChange(v, i)}
+            errorSchema={errorSchema[i] || {}}
           />
         ))
       } else if (!isSelect) {
@@ -170,6 +171,7 @@ export default defineComponent({
               rootSchema={rootSchema}
               value={k}
               onChange={(v: any) => handleArrayFieldChange(v, i)}
+              errorSchema={errorSchema[i] || {}}
             />
           </ArrayItemWrapper>
         ))
@@ -183,6 +185,7 @@ export default defineComponent({
             onChange={props.onChange}
             value={props.value}
             options={options}
+            errors={errorSchema.__errors}
           />
         )
       }
